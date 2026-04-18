@@ -30,65 +30,21 @@ To install the required packages, run:
 ```bash
 pip install numpy pandas yfinance
 
-Methodology
-Data Collection: Historical adjusted closing prices for the selected stocks, the S&P 500, and the 10-Year T-Bill are fetched using the Yahoo Finance API (yfinance).
+"""
+METHODOLOGY
+1. Data Collection: Historical adjusted closing prices for the selected stocks, the S&P 500, and the 10-Year T-Bill are fetched using the Yahoo Finance API (yfinance).
+2. Excess Returns: Daily asset returns and market returns are calculated and adjusted by subtracting the daily risk-free rate.
+3. Price of Risk (A): Calculated as the ratio of the expected market excess return to the market variance.
+4. Variance-Covariance Matrix (Σ): Extracted from the historical daily excess returns of the assets.
+5. Market Weights (w): Calculated using the real-time market capitalizations of the 5 companies.
+6. Implied Equilibrium Excess Returns (Π): The baseline returns implied by the market.
+7. Integrating Views: The model scales the uncertainty of the prior market equilibrium (τ) and integrates specific investor views using a Pick Matrix (P) and a View Vector (Q).
+8. Final Expected Returns: Calculated using the Black-Litterman master formula.
 
-Excess Returns: Daily asset returns and market returns are calculated and adjusted by subtracting the daily risk-free rate.
+INVESTOR VIEWS
+* View 1: Microsoft (MSFT) will outperform Tesla (TSLA) by 2%.
+* View 2: Nvidia (NVDA) will outperform Advanced Micro Devices (AMD) by 4%.
 
-Price of Risk (A): Calculated as the ratio of the expected market excess return to the market variance.
-
-A= 
-σ 
-m
-2
-​	
- 
-E(r 
-m
-​	
- )−r 
-f
-​	
- 
-​	
- 
-Variance-Covariance Matrix (Σ): Extracted from the historical daily excess returns of the assets.
-
-Market Weights (w): Calculated using the real-time market capitalizations of the 5 companies.
-
-Implied Equilibrium Excess Returns (Π): The baseline returns implied by the market, calculated as:
-
-Π=AΣw
-Integrating Views: The model scales the uncertainty of the prior market equilibrium (τ) and integrates specific investor views using a Pick Matrix (P) and a View Vector (Q).
-
-Final Expected Returns: The Black-Litterman expected returns are calculated using the master formula:
-
-E(r)−r 
-f
-​	
- =[(τΣ) 
-−1
- +P 
-T
- Ω 
-−1
- P] 
-−1
- [(τΣ) 
-−1
- Π+P 
-T
- Ω 
-−1
- Q]
-Investor Views
-The model incorporates the following relative views (Q) using the Pick Matrix (P):
-
-View 1: Microsoft (MSFT) will outperform Tesla (TSLA) by 2%.
-
-View 2: Nvidia (NVDA) will outperform Advanced Micro Devices (AMD) by 4%.
-
-Results
-The final output contrasts the historically observed average returns of the assets against the newly calculated expected returns derived from the Black-Litterman model, effectively blending the market's baseline equilibrium with the specific stated views.
-
-
+RESULTS
+The script outputs a contrast between the historically observed average returns of the assets and the expected returns derived from the Black-Litterman model.
+"""
